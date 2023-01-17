@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.util';
 
 const defaultFormFields = {
   displayName: '',
@@ -19,9 +20,12 @@ const SignUpForm = () => {
     });
   };
 
-  const submitHandler = event => {
+  const submitHandler = async event => {
     event.preventDefault();
-    console.log(formFields);
+
+    if (password !== confirmPassword) return alert('passwords do not match');
+
+    await createAuthUserWithEmailAndPassword(email, password);
   };
 
   return (
@@ -54,7 +58,7 @@ const SignUpForm = () => {
         />
         <label htmlFor="">Confirm Password</label>
         <input
-          type="text"
+          type="password"
           name="confirmPassword"
           value={confirmPassword}
           onChange={handleChange}
