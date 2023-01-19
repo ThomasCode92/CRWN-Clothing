@@ -20,7 +20,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const handleChange = event => {
+  const changeHandler = event => {
     const { name, value } = event.target;
 
     setFormFields(prevState => {
@@ -65,7 +65,7 @@ const SignUpForm = () => {
           type="text"
           name="displayName"
           value={displayName}
-          onChange={handleChange}
+          onChange={changeHandler}
           required
         />
         <FormInput
@@ -73,7 +73,7 @@ const SignUpForm = () => {
           type="email"
           name="email"
           value={email}
-          onChange={handleChange}
+          onChange={changeHandler}
           required
         />
         <FormInput
@@ -81,7 +81,7 @@ const SignUpForm = () => {
           type="password"
           name="password"
           value={password}
-          onChange={handleChange}
+          onChange={changeHandler}
           required
         />
         <FormInput
@@ -89,7 +89,7 @@ const SignUpForm = () => {
           type="password"
           name="confirmPassword"
           value={confirmPassword}
-          onChange={handleChange}
+          onChange={changeHandler}
           required
         />
         <Button type="submit">Sign up</Button>
