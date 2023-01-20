@@ -44,8 +44,6 @@ const SignInForm = () => {
         email,
         password
       );
-
-      setCurrentUser(user);
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found':
@@ -65,9 +63,7 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
-    const userDocRef = await createUserDocumentFromAuth(user);
-
-    console.log(userDocRef);
+    await createUserDocumentFromAuth(user);
   };
 
   return (
