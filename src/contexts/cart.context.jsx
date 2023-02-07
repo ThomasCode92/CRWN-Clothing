@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useReducer } from 'react';
 
 const INITIAL_STATE = {
   isCartOpen: false,
@@ -66,42 +66,47 @@ export const CartContext = createContext({
 });
 
 export const CartProvider = ({ children }) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
-  const [cartTotal, setCartTotal] = useState(0);
+  const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
-  useEffect(() => {
-    const newCartCount = cartItems.reduce((total, item) => {
+  const { isCartOpen, cartItems, cartCount, cartTotal } = state;
+
+  const updateCartItems = newCartItems => {
+    const newCartCount = newCartItems.reduce((total, item) => {
       return total + item.quantity;
     }, 0);
 
-    const newCartTotal = cartItems.reduce((total, item) => {
+    const newCartTotal = newCartItems.reduce((total, item) => {
       return total + item.quantity * item.price;
     }, 0);
 
-    setCartCount(newCartCount);
-    setCartTotal(newCartTotal);
-  }, [cartItems]);
-
-  const updateCartItems = newCartItems => {
+    dispatch({
+      type: CART_ACTION_TYPES.SET_CART_ITEMS,
+      payload: {
+        cartItems: newCartItems,
+        cartCount: newCartCount,
+        cartTotal: newCartTotal,
+      },
+    });
   };
 
   const addItemToCart = item => {
-    setCartItems(prevState => addCartItem(prevState, item));
+    const newCartItems = addCartItem(cartItems, item);
+    updateCartItems(newCartItems);
   };
 
   const removeItemFromCart = item => {
-    setCartItems(prevState => removeCartItem(prevState, item));
+    const newCartItems = removeCartItem(cartItems, item);
+    updateCartItems(newCartItems);
   };
 
   const clearItemFromCart = item => {
-    setCartItems(prevState => clearCartItem(prevState, item));
+    const newCartItems = clearCartItem(cartItems, item);
+    updateCartItems(newCartItems);
   };
 
   const value = {
     isCartOpen,
-    setIsCartOpen,
+    setIsCartOpen: () => {},
     cartItems,
     addItemToCart,
     removeItemFromCart,
