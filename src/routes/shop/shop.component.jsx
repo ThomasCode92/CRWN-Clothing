@@ -6,7 +6,7 @@ import CategoriesPreview from '../categories-preview/categories-preview.componen
 import Category from '../category/category.component';
 import './shop.styles.scss';
 
-import { setCategoriesMap } from '../../store/categories/category.action';
+import { setCategories } from '../../store/categories/category.action';
 
 import {
   addCollectionAndDocuments,
@@ -19,10 +19,10 @@ const Shop = () => {
 
   useEffect(() => {
     const getCategoriesMap = async () => {
-      const categoryMap = await getCollectionAndDocuments('categories');
-      console.log(categoryMap);
+      const categoriesArray = await getCollectionAndDocuments('categories');
+      console.log(categoriesArray);
 
-      const action = setCategoriesMap(categoryMap);
+      const action = setCategories(categoriesArray);
       dispatch(action);
     };
 
