@@ -40,15 +40,15 @@ const clearCartItem = (cartItems, item) => {
 
 export const addItemToCart = (cartItems, item) => {
   const newCartItems = addCartItem(cartItems, item);
-  createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
 export const removeItemFromCart = (cartItems, item) => {
   const newCartItems = removeCartItem(cartItems, item);
-  createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
 export const clearItemFromCart = (cartItems, item) => {
   const newCartItems = clearCartItem(cartItems, item);
-  createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
