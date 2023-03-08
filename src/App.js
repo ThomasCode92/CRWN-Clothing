@@ -10,28 +10,14 @@ import Shop from './routes/shop/shop.component';
 
 import { setCurrentUser } from './store/user/user.action';
 
-import {
-  createUserDocumentFromAuth,
-  onAuthStateChangedListener,
-} from './utils/firebase/firebase.util';
+import { getCurrentUser } from './utils/firebase/firebase.util';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubsribe = onAuthStateChangedListener(user => {
-      console.log(user);
-
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-
-      const action = setCurrentUser(user);
-      dispatch(action);
-    });
-
-    return unsubsribe;
-  }, [dispatch]);
+    getCurrentUser().then(user => console.log(user));
+  }, []);
 
   return (
     <Routes>
