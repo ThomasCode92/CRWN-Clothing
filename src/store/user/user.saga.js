@@ -1,9 +1,15 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-import { signInFailed, signInSuccess } from './user.action';
+import {
+  signInFailed,
+  signInSuccess,
+  signUpFailed,
+  signUpSuccess,
+} from './user.action';
 import { USER_ACTION_TYPES } from './user.types';
 
 import {
+  createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
   getCurrentUser,
   signInAuthUserWithEmailAndPassword,
@@ -18,12 +24,25 @@ export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
       additionalDetails
     );
 
-    console.log(userSnapshot);
-    console.log(userSnapshot.data());
-
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
   } catch (error) {
     yield put(signInFailed(error));
+  }
+}
+
+export function* signUpWithEmail({
+  payload: { email, password, displayName },
+}) {
+  try {
+    const { user } = yield call(
+      createAuthUserWithEmailAndPassword,
+      email,
+      password
+    );
+
+    yield put(signUpSuccess(user, { displayName }));
+  } catch (error) {
+    yield put(signUpFailed(error));
   }
 }
 
@@ -49,6 +68,10 @@ export function* signInWithEmail({ payload: { email, password } }) {
   }
 }
 
+export function* signInAfterSignup({ payload: { user, additionalDetails } }) {
+  yield call(getSnapshotFromUserAuth, user, additionalDetails);
+}
+
 export function* isUserAuthenticated() {
   try {
     const userAuth = yield call(getCurrentUser);
@@ -59,6 +82,14 @@ export function* isUserAuthenticated() {
   } catch (error) {
     yield put(signInFailed(error));
   }
+}
+
+export function* onSignUpStart() {
+  yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, signUpWithEmail);
+}
+
+export function* onSignUpSuccess() {
+  yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignup);
 }
 
 export function* onGoogleSignInStart() {
@@ -75,6 +106,8 @@ export function* onCheckUserSession() {
 
 export function* userSagas() {
   yield all([
+    call(onSignUpStart),
+    call(onSignUpSuccess),
     call(onCheckUserSession),
     call(onGoogleSignInStart),
     call(onEmailSignInStart),

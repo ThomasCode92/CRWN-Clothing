@@ -10,6 +10,25 @@ export const checkUserSession = () => {
   return createAction(USER_ACTION_TYPES.CHECK_USER_SESSION);
 };
 
+export const signUpStart = (email, password, displayName) => {
+  return createAction(USER_ACTION_TYPES.SIGN_UP_START, {
+    email,
+    password,
+    displayName,
+  });
+};
+
+export const signUpSuccess = (user, additionalDetails) => {
+  return createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, {
+    user,
+    additionalDetails,
+  });
+};
+
+export const signUpFailed = error => {
+  return createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error);
+};
+
 export const googleSignInStart = () => {
   return createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START);
 };
