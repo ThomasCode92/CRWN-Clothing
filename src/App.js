@@ -8,29 +8,13 @@ import Home from './routes/home/home.component';
 import Navigation from './routes/navigation/navigation.component';
 import Shop from './routes/shop/shop.component';
 
-import { setCurrentUser } from './store/user/user.action';
-
-import {
-  createUserDocumentFromAuth,
-  onAuthStateChangedListener,
-} from './utils/firebase/firebase.util';
+import { checkUserSession } from './store/user/user.action';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubsribe = onAuthStateChangedListener(user => {
-      console.log(user);
-
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-
-      const action = setCurrentUser(user);
-      dispatch(action);
-    });
-
-    return unsubsribe;
+    dispatch(checkUserSession());
   }, [dispatch]);
 
   return (
