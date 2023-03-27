@@ -5,7 +5,7 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import './sign-up-form.styles.scss';
 
-import { signUpStart } from '../../store/user/user.action';
+import { signUpStart } from '../../store/user/user.reducer';
 
 const defaultFormFields = {
   displayName: '',
@@ -38,7 +38,7 @@ const SignUpForm = () => {
     if (password !== confirmPassword) return alert('passwords do not match');
 
     try {
-      dispatch(signUpStart(email, password, displayName));
+      dispatch(signUpStart({ email, password, displayName }));
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');

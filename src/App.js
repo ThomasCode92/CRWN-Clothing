@@ -8,7 +8,7 @@ import Home from './routes/home/home.component';
 import Navigation from './routes/navigation/navigation.component';
 import Shop from './routes/shop/shop.component';
 
-import { checkUserSession } from './store/user/user.action';
+import { checkUserSession } from './store/user/user.reducer';
 
 const App = () => {
   const dispatch = useDispatch();
