@@ -7,7 +7,7 @@ import {
   selectCartCount,
   selectIsCartOpen,
 } from '../../store/cart/cart.selector';
-import { setCartIsOpen } from '../../store/cart/cart.action';
+import { setCartIsOpen } from '../../store/cart/cart.reducer';
 
 const CartIcon = () => {
   const isCartOpen = useSelector(selectIsCartOpen);

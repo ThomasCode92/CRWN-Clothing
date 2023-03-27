@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 import './checkout.styles.scss';
 
-import { setCartIsOpen } from '../../store/cart/cart.action';
+import { setCartIsOpen } from '../../store/cart/cart.reducer';
 import {
   selectCartItems,
   selectCartTotal,

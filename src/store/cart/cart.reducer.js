@@ -1,19 +1,40 @@
-import { CART_ACTION_TYPES } from './cart.types';
+import { createSlice } from '@reduxjs/toolkit';
+
+import {
+  addCartItem,
+  clearCartItem,
+  removeCartItem,
+} from '../../utils/cart/cart.util';
 
 const INITIAL_STATE = {
   isCartOpen: false,
   cartItems: [],
 };
 
-export const cartReducer = (state = INITIAL_STATE, action) => {
-  const { type, payload } = action;
+export const cartSlice = createSlice({
+  name: 'cart',
+  initialState: INITIAL_STATE,
+  reducers: {
+    addItemToCart(state, action) {
+      state.cartItems = addCartItem(state.cartItems, action.payload);
+    },
+    removeItemFromCart(state, action) {
+      state.cartItems = removeCartItem(state.cartItems, action.payload);
+    },
+    clearItemFromCart(state, action) {
+      state.cartItems = clearCartItem(state.cartItems, action.payload);
+    },
+    setCartIsOpen(state, action) {
+      state.isCartOpen = action.payload;
+    },
+  },
+});
 
-  switch (type) {
-    case CART_ACTION_TYPES.SET_CART_ITEMS:
-      return { ...state, cartItems: payload };
-    case CART_ACTION_TYPES.SET_IS_CART_OPEN:
-      return { ...state, isCartOpen: payload };
-    default:
-      return state;
-  }
-};
+export const {
+  addItemToCart,
+  removeItemFromCart,
+  clearItemFromCart,
+  setCartIsOpen,
+} = cartSlice.actions;
+
+export default cartSlice.reducer;
