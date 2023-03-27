@@ -7,7 +7,7 @@ import FormInput from '../form-input/form-input.component';
 import {
   emailSignInStart,
   googleSignInStart,
-} from '../../store/user/user.action';
+} from '../../store/user/user.reducer';
 
 import './sign-in-form.styles.scss';
 
@@ -38,7 +38,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      dispatch(emailSignInStart(email, password));
+      dispatch(emailSignInStart({ email, password }));
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found':
