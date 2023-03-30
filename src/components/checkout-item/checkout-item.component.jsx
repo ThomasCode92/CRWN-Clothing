@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import './checkout-item.styles.scss';
@@ -40,4 +41,4 @@ const CheckoutItem = ({ cartItem }) => {
   );
 };
 
-export default CheckoutItem;
+export default React.memo(CheckoutItem);
