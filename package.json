@@ -26,11 +26,15 @@
     "stripe": "^11.16.0",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "netlify-cli": "^13.2.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "netlify": "netlify dev"
   },
   "eslintConfig": {
     "extends": [
