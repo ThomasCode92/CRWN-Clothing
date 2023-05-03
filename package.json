@@ -24,8 +24,12 @@
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.7",
     "sass": "^1.57.1",
+    "typed-redux-saga": "^1.5.0",
     "typescript": "^5.0.4",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "babel-plugin-macros": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
