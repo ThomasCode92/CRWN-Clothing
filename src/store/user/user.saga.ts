@@ -3,6 +3,8 @@ import { User } from 'firebase/auth';
 
 import {
   EmailSignInStart,
+  SignUpStart,
+  SignUpSuccess,
   signInFailed,
   signInSuccess,
   signOutFailed,
@@ -54,17 +56,20 @@ export function* signInWithGoogle() {
 
 export function* signUpWithEmail({
   payload: { email, password, displayName },
-}) {
+}: SignUpStart) {
   try {
-    const { user } = yield* call(
+    const userCredential = yield* call(
       createAuthUserWithEmailAndPassword,
       email,
       password
     );
 
-    yield* put(signUpSuccess(user, { displayName }));
+    if (userCredential) {
+      const { user } = userCredential;
+      yield* put(signUpSuccess(user, { displayName }));
+    }
   } catch (error) {
-    yield* put(signUpFailed(error));
+    yield* put(signUpFailed(error as Error));
   }
 }
 
@@ -87,7 +92,9 @@ export function* signInWithEmail({
   }
 }
 
-export function* signInAfterSignup({ payload: { user, additionalDetails } }) {
+export function* signInAfterSignup({
+  payload: { user, additionalDetails },
+}: SignUpSuccess) {
   yield* call(getSnapshotFromUserAuth, user, additionalDetails);
 }
 
@@ -96,7 +103,7 @@ export function* signOut() {
     yield* call(signOutAuthUser);
     yield* put(signOutSuccess());
   } catch (error) {
-    yield* put(signOutFailed(error));
+    yield* put(signOutFailed(error as Error));
   }
 }
 
@@ -108,7 +115,7 @@ export function* isUserAuthenticated() {
 
     yield* call(getSnapshotFromUserAuth, userAuth);
   } catch (error) {
-    yield* put(signInFailed(error));
+    yield* put(signInFailed(error as Error));
   }
 }
 
