@@ -103,9 +103,11 @@ export const emailSignInStart = withMatcher(
   }
 );
 
-export const signInSuccess = withMatcher((user: UserData): SignInSuccess => {
-  return createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
-});
+export const signInSuccess = withMatcher(
+  (user: UserData & { id: string }): SignInSuccess => {
+    return createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
+  }
+);
 
 export const signInFailed = withMatcher((error: Error): SignInFailed => {
   return createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error);
