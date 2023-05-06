@@ -1,10 +1,20 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
+import { gql, useQuery } from '@apollo/client';
 
-import {
-  addCollectionAndDocuments,
-  getCollectionAndDocuments,
-} from '../utils/firebase/firebase.util';
-import SHOP_DATA from '../shop-data.json';
+const COLLECTIONS = gql`
+  query {
+    collections {
+      id
+      title
+      items {
+        id
+        name
+        imageUrl
+        price
+      }
+    }
+  }
+`;
 
 export const CategoriesContext = createContext({
   categoriesMap: {},
@@ -13,17 +23,10 @@ export const CategoriesContext = createContext({
 export const CategoriesProvider = ({ children }) => {
   const [categoriesMap, setCategoriesMap] = useState({});
 
-  useEffect(() => {
-    const getCategoriesMap = async () => {
-      const categoryMap = await getCollectionAndDocuments('categories');
-      console.log(categoryMap);
+  const { loading, error, data } = useQuery(COLLECTIONS);
 
-      setCategoriesMap(categoryMap);
-    };
-
-    addCollectionAndDocuments('categories', SHOP_DATA);
-    getCategoriesMap();
-  }, []);
+  console.log('loading', loading);
+  console.log('data', data);
 
   const value = { categoriesMap };
 
@@ -33,3 +36,4 @@ export const CategoriesProvider = ({ children }) => {
     </CategoriesContext.Provider>
   );
 };
+  
