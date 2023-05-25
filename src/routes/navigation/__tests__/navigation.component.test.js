@@ -27,4 +27,22 @@ describe('Navigation Component tests', () => {
     expect(signOutLinkElement).toBeInTheDocument();
     expect(signInLinkElement).toBeNull();
   });
+
+  test('should render not render a cart dropdown if isCartOpen is false', () => {
+    renderWithProviders(<Navigation />, {
+      preloadedState: { cart: { isCartOpen: false, cartItems: [] } },
+    });
+
+    const dropdownText = screen.queryByText(/your cart is empty/i);
+    expect(dropdownText).toBeNull();
+  });
+
+  test('should render a cart dropdown if isCartOpen is true', () => {
+    renderWithProviders(<Navigation />, {
+      preloadedState: { cart: { isCartOpen: true, cartItems: [] } },
+    });
+
+    const dropdownText = screen.getByText(/checkout/i);
+    expect(dropdownText).toBeInTheDocument();
+  });
 });
