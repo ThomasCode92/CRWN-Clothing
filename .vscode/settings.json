@@ -1,5 +1,20 @@
 {
+  // Extensions
   "inlineFold.autoFold": false,
+  "gitlens.codeLens.recentChange.enabled": false,
+  "gitlens.codeLens.authors.enabled": false,
+  "jest.jestCommandLine": "npm test --",
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-src-file",
+    "onStartup": ["all-tests"]
+  },
+
+  // IDE Config
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
