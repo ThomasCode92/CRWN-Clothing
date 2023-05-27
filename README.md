@@ -2,33 +2,29 @@
 
 Find your new outfit at _CRWN Clothing_!
 
+## About this Repository
+
 This _'complete online webshop'_ project is part of the _[Complete React Developer](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/)_ course from [ZTM](https://zerotomastery.io/).<br />
 It covers al lot of React concepts like the React Router, React Context, ... along with some other general Web Development topics (eg. Authentication, Stripe Payments, ...)!
 
-## Available Scripts
+## Different versions
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br/>
-In the project directory, you can run:
+There are 3 projects in this repo<br />
 
-### `npm start`
+**Main Branch**<br />
+The main branch holds the complete and finished version of this project.<br />
+Run the development server with `npm run netlify`.<br />
+This should open your default browser at [http://localhost:8888](http://localhost:8888).<br />
+Run the tests with `npm run test`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**TS Refactor**<br />
+A TS refactor of some of the features.<br />
+Checkout the correct branch with `git checkout TS-Refactor`<br />
+Runt the development server with `npm run start`<br />
+This should open your default browser at [http://localhost:3000](http://localhost:3000).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**GraphQL & Apollo**<br />
+Use a GraphQL backend instead of Firebase.<br />
+Checkout the correct branch with `git checkout 22-GraphQL`<br />
+Runt the development server with `npm run start`<br />
+This should open your default browser at [http://localhost:3000](http://localhost:3000).
