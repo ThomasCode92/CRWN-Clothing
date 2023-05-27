@@ -14,7 +14,7 @@ export function* fetchCategoriesAsync() {
     yield put(setCategories(categoriesArray));
   } catch (error) {
     console.log('ERROR');
-    yield put(setError, error);
+    yield put(setError(error));
   }
 }
 
